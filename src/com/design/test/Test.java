@@ -1,5 +1,7 @@
 package com.design.test;
 
+import com.design.patterns.cglibproxy.CglibProxy;
+import com.design.patterns.cglibproxy.Train;
 import com.design.patterns.jdkproxy.TimerHandler;
 import com.design.patterns.observerpattern.ConcreteObserver;
 import com.design.patterns.observerpattern.ConcreteWeatherSubject;
@@ -22,7 +24,14 @@ public class Test {
         // test.integrationTest();
         // test.polymerizeTest();
         // test.logTimerTest();
-        test.jdkProxyTest();
+        // test.jdkProxyTest();
+        test.cglibTest();
+    }
+
+    private void cglibTest() {
+        CglibProxy proxy = new CglibProxy();
+        Train t = (Train) proxy.getProxy(Train.class);
+        t.move();
     }
 
     /**
@@ -36,7 +45,7 @@ public class Test {
         Class<?> clz = car.getClass();
         Moveable m = (Moveable) Proxy.newProxyInstance(clz.getClassLoader(), clz.getInterfaces(), h);
         m.move();
-  }
+    }
 
     private void logTimerTest() {
         Car car = new Car();
