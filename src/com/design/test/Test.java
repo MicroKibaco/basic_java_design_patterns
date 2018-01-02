@@ -15,6 +15,7 @@ import com.design.patterns.proxy.ProxyCar;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;
 
+
 public class Test {
 
     public static void main(String[] args) {
@@ -25,7 +26,17 @@ public class Test {
         // test.polymerizeTest();
         // test.logTimerTest();
         // test.jdkProxyTest();
-        test.cglibTest();
+        // test.cglibTest();
+        // test.customProxyTest();
+
+    }
+
+    private void customProxyTest() {
+        Car car = new Car();
+        InvocationHandler h = new TimerHandler(car);
+        Class<?> clz = car.getClass();
+        com.design.patterns.proxy.Proxy.newProxyInstance(clz, h);
+
     }
 
     private void cglibTest() {
@@ -38,12 +49,19 @@ public class Test {
      * loader: 类加载器
      * interface: 实现接口
      * h InvocationHandler
+     * 动态代理实现思路:
+     * 实现功能: 通过Proxy的newProxyInstance返回代理对象
+     * 1. 声明一段源码(动态产生代理)
+     * 2. 编译源码(JDK Compiler API),产生新的类(代理类)
+     * 3. 将这个类load到内存当中,产生一个新的对象(代理对象)
+     * 4. return 代理对象
      */
     private void jdkProxyTest() {
         Car car = new Car();
         InvocationHandler h = new TimerHandler(car);
         Class<?> clz = car.getClass();
         Moveable m = (Moveable) Proxy.newProxyInstance(clz.getClassLoader(), clz.getInterfaces(), h);
+        System.out.println("代理类的名字: " + m.getClass().getName());
         m.move();
     }
 
@@ -90,5 +108,6 @@ public class Test {
         // 4.目标发布天气
         weatherSbj.setContent("明天天气晴朗,蓝天白云,气温28度 ");
     }
+
 
 }
