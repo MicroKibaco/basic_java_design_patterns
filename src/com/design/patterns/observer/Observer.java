@@ -9,5 +9,5 @@ public interface Observer {
      * 更新接口
      * @param content 传入的目标对象,方便获取目标对象的相应状态
      */
-    public void update(String content);
+     void update(String content);
 }
