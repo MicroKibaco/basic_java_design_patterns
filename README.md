@@ -59,3 +59,9 @@ newProxyInstance(ClassLoader loader,Class[] interfaces,InvocationHandler h)
 
 特点: 通过多重继承不兼容接口, 实现对目标接口的匹配单一的为某个类而实现适配
 ![类适配器](docs/class-adapter.png)  
+
+### 责任链模式
+1. 什么是责任链模式
+2. 如何实现责任链模式
+3. 责任链模式如何解耦
+4. 责任链模式的应用
