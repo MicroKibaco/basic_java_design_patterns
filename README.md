@@ -22,6 +22,7 @@
 ![静态代理](docs/static-proxy.png)
    二. 动态代理  
   > java动态代理类位于java.lang.reflect包下,一般涉及到以下两个类:
+  ![代理模式时序图](docs/UML-proxy.png)  
   
 (I)Interface InvocationHandler: 该接口中仅定义了一个方法
 
@@ -46,3 +47,15 @@ newProxyInstance(ClassLoader loader,Class[] interfaces,InvocationHandler h)
 4. 通过代理调用方法
   
 ![动态代理](docs/dynamic-proxy.png)  
+
+### 适配器模式
+- 组合
+> 采用组合方式的适配器成为对象适配器
+
+特点: 把 "被适配器者" 作为一个对象组合到适配器类,以修改目标接口包装的被适配者
+
+- 继承
+> 采用继承方式的称为类适配器
+
+特点: 通过多重继承不兼容接口, 实现对目标接口的匹配单一的为某个类而实现适配
+![类适配器](docs/class-adapter.png)  
