@@ -39,6 +39,7 @@ static Object newProxyInstance(ClassLoader loader,Class[] interface,InvocationHa
 1. 创建一个实现接口 InvocationHandler 的类,它必须实现invoke方法
 2. 创建被代理的类和接口
 3. 调用proxy的静态方法,创建一个代理类
+![报错代码](docs/error-proxy.png)  
 ```java
 newProxyInstance(ClassLoader loader,Class[] interfaces,InvocationHandler h)
 ```

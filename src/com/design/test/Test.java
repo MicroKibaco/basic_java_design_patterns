@@ -8,12 +8,11 @@ import com.design.patterns.observerpattern.ConcreteWeatherSubject;
 import com.design.patterns.proxy.Car;
 import com.design.patterns.proxy.CarLogProxy;
 import com.design.patterns.proxy.CarTimerProxy;
+import com.design.patterns.proxy.InvocationHandler;
 import com.design.patterns.proxy.Moveable;
 import com.design.patterns.proxy.PolymericCar;
+import com.design.patterns.proxy.Proxy;
 import com.design.patterns.proxy.ProxyCar;
-
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Proxy;
 
 
 public class Test {
@@ -27,15 +26,20 @@ public class Test {
         // test.logTimerTest();
         // test.jdkProxyTest();
         // test.cglibTest();
-        // test.customProxyTest();
+       test.customProxyTest();
 
     }
 
-    private void customProxyTest() {
+    private void customProxyTest()  {
         Car car = new Car();
         InvocationHandler h = new TimerHandler(car);
-        Class<?> clz = car.getClass();
-        com.design.patterns.proxy.Proxy.newProxyInstance(clz, h);
+        Moveable m = null;
+        try {
+            m = (Moveable) Proxy.newProxyInstance(Moveable.class,h);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        m.move();
 
     }
 
@@ -57,12 +61,12 @@ public class Test {
      * 4. return 代理对象
      */
     private void jdkProxyTest() {
-        Car car = new Car();
+     /*   Car car = new Car();
         InvocationHandler h = new TimerHandler(car);
         Class<?> clz = car.getClass();
         Moveable m = (Moveable) Proxy.newProxyInstance(clz.getClassLoader(), clz.getInterfaces(), h);
         System.out.println("代理类的名字: " + m.getClass().getName());
-        m.move();
+        m.move();*/
     }
 
     private void logTimerTest() {
