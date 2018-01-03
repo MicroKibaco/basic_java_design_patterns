@@ -1,7 +1,7 @@
 package com.design.patterns.cor.handler;
 
 /*
- * 主管,可以批准15%以内的折扣
+ * 销售主管,可以批准15%以内的折扣
  */
 public class Lead extends PriceHandler {
 
