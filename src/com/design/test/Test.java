@@ -2,6 +2,8 @@ package com.design.test;
 
 import com.design.patterns.cglibproxy.CglibProxy;
 import com.design.patterns.cglibproxy.Train;
+import com.design.patterns.factory.HairFactory;
+import com.design.patterns.factory.HairInterface;
 import com.design.patterns.jdkproxy.TimerHandler;
 import com.design.patterns.observerpattern.ConcreteObserver;
 import com.design.patterns.observerpattern.ConcreteWeatherSubject;
@@ -26,16 +28,26 @@ public class Test {
         // test.logTimerTest();
         // test.jdkProxyTest();
         // test.cglibTest();
-       test.customProxyTest();
+        // test.customProxyTest();
+        test.factoryTest();
 
     }
 
-    private void customProxyTest()  {
+    private void factoryTest() {
+
+        HairFactory factory = new HairFactory();
+        /*HairInterface left = factory.getHair("left");
+        left.draw();*/
+        HairInterface left = factory.getHairByClassKey("left");
+        left.draw();
+    }
+
+    private void customProxyTest() {
         Car car = new Car();
         InvocationHandler h = new TimerHandler(car);
         Moveable m = null;
         try {
-            m = (Moveable) Proxy.newProxyInstance(Moveable.class,h);
+            m = (Moveable) Proxy.newProxyInstance(Moveable.class, h);
         } catch (Exception e) {
             e.printStackTrace();
         }
