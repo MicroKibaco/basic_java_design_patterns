@@ -204,9 +204,44 @@ static Object newProxyInstance(ClassLoader loader,Class[] interface,InvocationHa
 ```
 
 #### 步骤
-1. 创建一个实现接口 InvocationHandler 的类,它必须实现invoke方法
-2. 创建被代理的类和接口
-3. 调用proxy的静态方法,创建一个代理类
+(I). 创建一个实现接口 InvocationHandler 的类,它必须实现invoke方法
+
+```java
+public interface InvocationHandler {
+
+	public void invoke(Object o, Method m);
+}
+
+```
+
+(II). 创建被代理的类和接口
+```java
+public interface Moveable {
+    void move();
+}
+
+```
+(III).调用proxy的静态方法,创建一个代理类
+```java
+public class Car implements Moveable {
+    @Override
+    public void move() {
+        long startTime = System.currentTimeMillis();
+        System.out.println("汽车开始行驶...");
+        // 实现开车
+        try {
+            Thread.sleep(new Random().nextInt(1000));
+            System.out.println("汽车行驶中...");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("汽车结束行驶... 汽车行驶时间: "
+                + (endTime - startTime) + "毫秒!");
+    }
+}
+```
 ![报错代码](docs/error-proxy.png)  
 ```java
 newProxyInstance(ClassLoader loader,Class[] interfaces,InvocationHandler h)
@@ -226,6 +261,41 @@ newProxyInstance(ClassLoader loader,Class[] interfaces,InvocationHandler h)
 
 特点: 通过多重继承不兼容接口, 实现对目标接口的匹配单一的为某个类而实现适配
 ![类适配器](docs/class-adapter.png)  
+
+- 步骤
+
+步骤一: 使用二相电流供电
+```java
+public class GBTwoPlug {
+    public void powerWithTwo() {
+        System.out.println("使用二相电流供电");
+    }
+}
+```
+步骤二: 三相插座接口
+```java
+public interface ThreePlugIf {
+    void powerWithThree();
+
+}
+```
+步骤三: 二相转三相的插座适配器
+```java
+public class TwoPlugAdapter implements ThreePlugIf {
+
+    private GBTwoPlug mGBTwoPlug;
+
+    public TwoPlugAdapter(GBTwoPlug gbtwoplug) {
+        mGBTwoPlug = gbtwoplug;
+    }
+
+    @Override
+    public void powerWithThree() {
+        System.out.println("通过转化");
+        mGBTwoPlug.powerWithTwo();
+    }
+}
+```
 
 ### 责任链模式
 1. 什么是责任链模式
@@ -253,7 +323,68 @@ newProxyInstance(ClassLoader loader,Class[] interfaces,InvocationHandler h)
 * 设计思想
 1. 尽量松耦合,一个对象的依赖对象的变化与本身无关
 2. 具体产品与客户端剥离,责任分割
-* 好处
+* 实现步骤
+
+步骤一: 定义一个发型接口
+```java
+public interface HairInterface {
+    // 实现发型
+    public void draw();
+}
+```
+步骤二: 定义一个发型工厂,实现:根据类型来创造对象,根据类的名称来生成对象,根据类的key来生成对象三个方法
+```java
+public class HairFactory {
+
+    public HairInterface getHair(String key) {
+
+        if ("left".equals(key)) {
+            return new LeftHair();
+        }
+        if ("right".equals(key)) {
+            return new LeftHair();
+        } else {
+            return null;
+        }
+    }
+
+
+    public HairInterface getHairByClass(String className) {
+        try {
+            HairInterface hair = (HairInterface) Class.forName(className).newInstance();
+            return hair;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+ 
+
+    public HairInterface getHairByClassKey(String key) {
+        try {
+            Map<String, String> map = new PropertiesReader().getProperties();
+            HairInterface hair = (HairInterface) Class.forName(map.get(key)).newInstance();
+            return hair;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+}
+
+```
+步骤三: 画了一个左偏分发型
+
+```java
+public class LeftHair implements HairInterface {
+    @Override
+    public void draw() {
+        System.out.println("画了一个左偏分发型");
+    }
+}
+```
 
 ### 模板方法
 (I) 什么是模板方法模式
