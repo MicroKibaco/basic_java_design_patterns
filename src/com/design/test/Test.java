@@ -15,6 +15,9 @@ import com.design.patterns.proxy.Moveable;
 import com.design.patterns.proxy.PolymericCar;
 import com.design.patterns.proxy.Proxy;
 import com.design.patterns.proxy.ProxyCar;
+import com.design.patterns.templatefunc.Coffee;
+import com.design.patterns.templatefunc.RefreshBeverage;
+import com.design.patterns.templatefunc.Tea;
 
 
 public class Test {
@@ -29,8 +32,21 @@ public class Test {
         // test.jdkProxyTest();
         // test.cglibTest();
         // test.customProxyTest();
-        test.factoryTest();
+        // test.factoryTest();
+        test.templateFunc();
 
+    }
+
+    private void templateFunc() {
+        System.out.println("制备咖啡...");
+        RefreshBeverage beverage = new Coffee();
+        beverage.preBeverageTempl();
+        System.out.println("咖啡好了!");
+        System.out.println("------------------------------");
+        System.out.println("制备茶🍵...");
+        RefreshBeverage tea = new Tea();
+        tea.preBeverageTempl();
+        System.out.println("茶🍵好了!");
     }
 
     private void factoryTest() {

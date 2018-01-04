@@ -90,3 +90,8 @@ newProxyInstance(ClassLoader loader,Class[] interfaces,InvocationHandler h)
 1. 尽量松耦合,一个对象的依赖对象的变化与本身无关
 2. 具体产品与客户端剥离,责任分割
 * 好处
+
+### 模板方法
+1. 什么是模板方法模式
+2. 如何实现模板方法模式
+3. 模板方法模式的特点
